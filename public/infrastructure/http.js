@@ -36,11 +36,15 @@ var post = function () {
 
               _logger2.default.debug('Making POST request', options);
 
-              (0, _request2.default)(options, function (error, response /* , body */) {
-                if (!error && response.statusCode === 200) {
-                  resolve({ status: 200 });
+              (0, _request2.default)(options, function (error, response, responseBody) {
+                _logger2.default.debug('POST Response', { error: error, response: response, body: responseBody });
+
+                var status = response && response.statusCode ? response.statusCode : 502;
+
+                if (status >= 200 && status < 400) {
+                  resolve({ status: status, response: response });
                 } else {
-                  reject({ status: 502, error: error });
+                  reject({ status: status, error: error, response: response });
                 }
               });
             }));
