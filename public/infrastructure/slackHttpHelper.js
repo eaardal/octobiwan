@@ -50,9 +50,9 @@ var postToSlackWebHook = function () {
               body.payload.channel = channel;
             }
 
-            _logger2.default.debug('POSTing to "' + slackWebHookUrl + '"', encodeURIComponent(body));
+            _logger2.default.debug('POSTing to "' + slackWebHookUrl + '"', body);
 
-            return _context.abrupt('return', _http2.default.post(slackWebHookUrl, encodeURIComponent(body)));
+            return _context.abrupt('return', _http2.default.post(slackWebHookUrl, body));
 
           case 10:
           case 'end':

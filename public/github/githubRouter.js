@@ -24,6 +24,10 @@ var _createRouter = (0, _routerFactory2.default)(),
     router = _createRouter.router,
     execute = _createRouter.execute;
 
+var processPingEvent = function processPingEvent(req, res) {
+  res.status(200).send('Well hello there ;)');
+};
+
 var processUnhandledEvent = function processUnhandledEvent(req, res) {
   res.status(406).send('I can\'t handle "' + req.get('X-GitHub-Event') + '" events :(');
 };
@@ -47,38 +51,42 @@ router.post('/hook', execute(function () {
             eventType = req.get('X-GitHub-Event');
             _context.prev = 4;
             _context.t0 = eventType;
-            _context.next = _context.t0 === 'issues' ? 8 : 11;
+            _context.next = _context.t0 === 'ping' ? 8 : _context.t0 === 'issues' ? 10 : 13;
             break;
 
           case 8:
-            _context.next = 10;
-            return (0, _issue2.default)(req, res);
+            processPingEvent(req, res);
+            return _context.abrupt('break', 15);
 
           case 10:
-            return _context.abrupt('break', 13);
+            _context.next = 12;
+            return (0, _issue2.default)(req, res);
 
-          case 11:
-            processUnhandledEvent(req, res);
-            return _context.abrupt('break', 13);
+          case 12:
+            return _context.abrupt('break', 15);
 
           case 13:
-            _context.next = 19;
-            break;
+            processUnhandledEvent(req, res);
+            return _context.abrupt('break', 15);
 
           case 15:
-            _context.prev = 15;
+            _context.next = 21;
+            break;
+
+          case 17:
+            _context.prev = 17;
             _context.t1 = _context['catch'](4);
 
             _logger2.default.error('Error occurred', _context.t1);
 
             res.status(500).json({ error: _context.t1 || 'Unknown error' });
 
-          case 19:
+          case 21:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[4, 15]]);
+    }, _callee, undefined, [[4, 17]]);
   }));
 
   return function (_x, _x2) {
