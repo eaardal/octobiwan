@@ -9,7 +9,7 @@ const postToSlackWebHook = async (req, text) => {
 
   const body = {
     payload: {
-      text,
+      text: encodeURIComponent(text),
     },
   };
 

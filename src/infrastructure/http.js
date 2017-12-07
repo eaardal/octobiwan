@@ -11,7 +11,7 @@ const post = async (url, body) =>
       url,
       headers,
       method: 'POST',
-      body: JSON.stringify(body),
+      body,
     };
 
     log.debug('Making POST request', options);
