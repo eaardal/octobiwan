@@ -29,7 +29,7 @@ var postToSlackWebHook = function () {
             channel = req.query.channel;
             body = {
               payload: {
-                text: text
+                text: encodeURIComponent(text)
               }
             };
 

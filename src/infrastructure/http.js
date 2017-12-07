@@ -16,11 +16,15 @@ const post = async (url, body) =>
 
     log.debug('Making POST request', options);
 
-    request(options, (error, response /* , body */) => {
-      if (!error && response.statusCode === 200) {
-        resolve({ status: 200 });
+    request(options, (error, response, responseBody) => {
+      log.debug('POST Response', { error, response, body: responseBody });
+
+      const status = response && response.statusCode ? response.statusCode : 502;
+
+      if (status >= 200 && status < 400) {
+        resolve({ status, response });
       } else {
-        reject({ status: 502, error });
+        reject({ status, error, response });
       }
     });
   });

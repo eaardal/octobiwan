@@ -31,7 +31,7 @@ var post = function () {
                 url: url,
                 headers: headers,
                 method: 'POST',
-                body: JSON.stringify(body)
+                body: body
               };
 
               _logger2.default.debug('Making POST request', options);
