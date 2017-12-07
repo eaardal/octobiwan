@@ -18,8 +18,15 @@ jobs:
           paths:
             - ./node_modules
 
-deployment:
-  prod:
-    branch: master
-    heroku:
-      appname: octobiwan
+  deploy:
+    machine:
+      enabled: true
+    working_directory: ~/myapp
+    environment:
+      - HEROKU_APP: octobiwan
+    steps:
+      - restore_cache:
+          dependency-cache-{{ checksum "package.json" }}
+      - run:
+          command: |
+            git push heroku master
