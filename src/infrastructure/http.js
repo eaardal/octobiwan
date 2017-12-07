@@ -1,6 +1,7 @@
 import request from 'request';
+import log from './logger';
 
-const post = (url, body) =>
+const post = async (url, body) =>
   new Promise((resolve, reject) => {
     const headers = {
       'Content-Type': 'application/json',
@@ -10,14 +11,16 @@ const post = (url, body) =>
       url,
       headers,
       method: 'POST',
-      form: body,
+      body,
     };
+
+    log.debug('Making POST request', options);
 
     request(options, (error, response /* , body */) => {
       if (!error && response.statusCode === 200) {
         resolve({ status: 200 });
       } else {
-        reject(error);
+        reject({ status: 502, error });
       }
     });
   });
