@@ -4,7 +4,7 @@
   "description": "Slackifies GitHub webhook payloads to readable Slack messages",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon src/app/main.js --exec babel-node | bunyan",
+    "start": "cross-env NODE_ENV=development nodemon src/app/main.js --exec babel-node",
     "reinstall": "rm -rf node_modules/ && rm package-lock.json && npm install",
     "test": "cross-env NODE_ENV=development npm run jest",
     "test:watch": "npm run jest:watchall",

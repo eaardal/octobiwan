@@ -4,6 +4,10 @@ import processIssueEvent from './issue';
 
 const { router, execute } = createRouter();
 
+const processPingEvent = (req, res) => {
+  res.status(200).send('Well hello there ;)');
+};
+
 const processUnhandledEvent = (req, res) => {
   res.status(406).send(`I can't handle "${req.get('X-GitHub-Event')}" events :(`);
 };
@@ -24,6 +28,9 @@ router.post(
 
     try {
       switch (eventType) {
+        case 'ping':
+          processPingEvent(req, res);
+          break;
         case 'issues':
           await processIssueEvent(req, res);
           break;

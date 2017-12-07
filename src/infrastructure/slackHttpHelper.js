@@ -29,9 +29,9 @@ const postToSlackWebHook = async (req, text) => {
     body.payload.channel = channel;
   }
 
-  log.debug(`POSTing to "${slackWebHookUrl}"`, encodeURIComponent(body));
+  log.debug(`POSTing to "${slackWebHookUrl}"`, body);
 
-  return http.post(slackWebHookUrl, encodeURIComponent(body));
+  return http.post(slackWebHookUrl, body);
 };
 
 export default {
