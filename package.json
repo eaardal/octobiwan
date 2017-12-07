@@ -16,7 +16,6 @@
     "eslint:configs": "eslint *.js",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint:watch": "nodemon --exec \"npm run eslint\"",
-    "postinstall": "npm run build",
     "build": "rm -rf public/ && babel src --out-dir public",
     "deploy": "git push heroku master && heroku logs --tail",
     "serve": "cross-env NODE_ENV=production node ./public/app/main.js | bunyan"
