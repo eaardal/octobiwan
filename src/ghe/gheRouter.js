@@ -1,13 +1,23 @@
 import createRouter from '../infrastructure/routerFactory';
+import processIssueEvent from './issue';
 
 const { router, execute } = createRouter();
 
-router.post('/pull-request', execute(async (req, res) => {
-  const body = req.body;
+const processUnhandledEvent = (req, res) => {
+  res.status(406).send(`I can't handle "${req.get('X-GitHub-Event')}" events :(`);
+};
 
-  
+router.post('/hook', execute(async (req, res) => {
+  const eventType = req.get('X-GitHub-Event');
 
-  res.json({ temp: 'orary' });
+  switch (eventType) {
+    case 'issues':
+      processIssueEvent(req, res);
+      break;
+    default:
+      processUnhandledEvent(req, res);
+      break;
+  }
 }));
 
 export default router;
