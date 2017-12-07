@@ -7,7 +7,7 @@ import Logger from '../infrastructure/logger';
 import githubRouter from '../github/githubRouter';
 
 const app = express();
-const PORT = process.env.port || 8123;
+const PORT = process.env.PORT || 8123;
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());

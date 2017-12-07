@@ -2,8 +2,6 @@ import log from './logger';
 import http from './http';
 
 const postToSlackWebHook = async (req, text) => {
-  log.debug('querystring params', req.query);
-
   const slackWebHookUrl = req.query.slackHook;
   const botName = req.query.botName;
   const botIcon = req.query.botIcon;
@@ -31,9 +29,9 @@ const postToSlackWebHook = async (req, text) => {
     body.payload.channel = channel;
   }
 
-  log.debug(`POST-ing to "${slackWebHookUrl}"`, encodeURIComponent(body));
+  log.debug(`POSTing to "${slackWebHookUrl}"`, encodeURIComponent(body));
 
-  return http.post(slackWebHookUrl, body);
+  return http.post(slackWebHookUrl, encodeURIComponent(body));
 };
 
 export default {
