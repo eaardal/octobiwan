@@ -23,8 +23,6 @@ var postToSlackWebHook = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _logger2.default.debug('querystring params', req.query);
-
             slackWebHookUrl = req.query.slackHook;
             botName = req.query.botName;
             botIcon = req.query.botIcon;
@@ -52,11 +50,11 @@ var postToSlackWebHook = function () {
               body.payload.channel = channel;
             }
 
-            _logger2.default.debug('POST-ing to "' + slackWebHookUrl + '"', encodeURIComponent(body));
+            _logger2.default.debug('POSTing to "' + slackWebHookUrl + '"', encodeURIComponent(body));
 
-            return _context.abrupt('return', _http2.default.post(slackWebHookUrl, body));
+            return _context.abrupt('return', _http2.default.post(slackWebHookUrl, encodeURIComponent(body)));
 
-          case 11:
+          case 10:
           case 'end':
             return _context.stop();
         }

@@ -18,15 +18,15 @@ var _logger = require('../infrastructure/logger');
 
 var _logger2 = _interopRequireDefault(_logger);
 
-var _gheRouter = require('../ghe/gheRouter');
+var _githubRouter = require('../github/githubRouter');
 
-var _gheRouter2 = _interopRequireDefault(_gheRouter);
+var _githubRouter2 = _interopRequireDefault(_githubRouter);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import cors from 'cors';
 var app = (0, _express2.default)();
-var PORT = process.env.port || 8123;
+var PORT = process.env.PORT || 8123;
 
 app.use((0, _morgan2.default)('dev'));
 app.use(_bodyParser2.default.json());
@@ -42,7 +42,7 @@ app.get('/ping', function (req, res) {
   res.send('Pong!');
 });
 
-app.use('/ghe', _gheRouter2.default);
+app.use('/github', _githubRouter2.default);
 
 app.listen(PORT, function () {
   _logger2.default.info("This is the api you're looking for", { port: PORT });

@@ -18,7 +18,7 @@
     "eslint:watch": "nodemon --exec \"npm run eslint\"",
     "build": "npm run eslint && rm -rf public/ && babel src --out-dir public",
     "deploy": "npm run build && git push heroku master && heroku logs --tail",
-    "serve": "cross-env NODE_ENV=production node public/app/main.js PORT=$PORT | bunyan"
+    "serve": "cross-env NODE_ENV=production node public/app/main.js"
   },
   "author": "Eirik Årdal",
   "license": "ISC",
