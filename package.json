@@ -18,7 +18,7 @@
     "eslint:watch": "nodemon --exec \"npm run eslint\"",
     "build": "rm -rf public/ && babel src --out-dir public",
     "deploy": "git push heroku master && heroku logs --tail",
-    "serve": "cross-env NODE_ENV=production node ./public/app/main.js | bunyan"
+    "serve": "cross-env NODE_ENV=production node ../public/app/main.js | bunyan"
   },
   "author": "",
   "license": "ISC",
