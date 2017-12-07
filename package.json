@@ -16,10 +16,8 @@
     "eslint:configs": "eslint *.js",
     "eslint:fix": "npm run eslint -- --fix",
     "eslint:watch": "nodemon --exec \"npm run eslint\"",
-    "build-staging": "",
-    "build-production": "cross-env NODE_ENV=production babel-node src/app/main.js",
-    "run-production":
-      "cross-env NODE_ENV=production nodemon src/app/main.js --exec babel-node | bunyan"
+    "build": "rm -rf public/ && babel src --out-dir public",
+    "serve": "cross-env NODE_ENV=production node public/app/main.js | bunyan"
   },
   "author": "",
   "license": "ISC",

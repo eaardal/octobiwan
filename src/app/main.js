@@ -1,5 +1,6 @@
+import 'babel-polyfill';
 import express from 'express';
-import cors from 'cors';
+// import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import Logger from '../infrastructure/logger';
@@ -25,5 +26,5 @@ app.get('/ping', (req, res) => {
 app.use('/ghe', gheRouter);
 
 app.listen(PORT, () => {
-  Logger.info('This is the api you\'re looking for', { port: PORT });
+  Logger.info("This is the api you're looking for", { port: PORT });
 });
