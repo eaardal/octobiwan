@@ -4,7 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import Logger from '../infrastructure/logger';
-import gheRouter from '../ghe/gheRouter';
+import githubRouter from '../github/githubRouter';
 
 const app = express();
 const PORT = process.env.port || 8123;
@@ -23,7 +23,7 @@ app.get('/ping', (req, res) => {
   res.send('Pong!');
 });
 
-app.use('/ghe', gheRouter);
+app.use('/github', githubRouter);
 
 app.listen(PORT, () => {
   Logger.info("This is the api you're looking for", { port: PORT });
