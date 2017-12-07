@@ -13,7 +13,7 @@ deployment:
  prod:
    branch: master
    heroku:
-     appname: nerdschool-deploy
+     appname: octobiwan
 
 
 # version: 2
