@@ -1,10 +1,13 @@
-import Slack, { constructClosedPullRequestText, constructPullRequestText } from '../slack';
+import Slack from '../slack';
+import GitHubTextBuilder from '../utils/GitHubTextBuilder';
 import { processUnhandledEvent } from './common';
 
 const openedPullRequest = async (req, res) => {
-  const text = constructPullRequestText({
-    headline: 'Ny',
-    action: 'åpnet',
+  const { title, html_url } = req.body.pull_request;
+
+  const text = GitHubTextBuilder.buildPullRequestText({
+    headline: 'Ny pull request',
+    description: `opprettet pull requesten <${html_url}|${title}>`,
     emoji: ':sparkles:',
   }, req.body);
 
@@ -12,9 +15,11 @@ const openedPullRequest = async (req, res) => {
 };
 
 const editedPullRequest = async (req, res) => {
-  const text = constructPullRequestText({
-    headline: 'Oppdatert',
-    action: 'oppdaterte',
+  const { title, html_url } = req.body.pull_request;
+
+  const text = GitHubTextBuilder.buildPullRequestText({
+    headline: 'Oppdatert pull request',
+    description: `oppdaterte pull requesten <${html_url}|${title}>`,
     emoji: ':nut_and_bolt:',
   }, req.body);
 
@@ -22,21 +27,35 @@ const editedPullRequest = async (req, res) => {
 };
 
 const closedPullRequest = async (req, res) => {
-  const { title, merged, base } = req.body.pull_request;
+  const { title, merged, base, html_url } = req.body.pull_request;
 
-  const text = constructClosedPullRequestText({
-    headline: merged ? 'Merget pull request' : 'Lukket pull request',
-    action: merged ? `merget pull request "*${title}*" inn i *${base.ref}*` : 'lukket pull request',
-    emoji: merged ? ':white_check_mark:' : ':no_entry_sign:',
+  const headline = merged
+    ? 'Merget pull request'
+    : 'Lukket pull request';
+
+  const description = merged
+    ? `merget pull requesten <${html_url}|${title}> inn i ${base.ref}`
+    : `lukket pull requesten <${html_url}|${title}>`;
+
+  const emoji = merged
+    ? ':white_check_mark:'
+    : ':no_entry_sign:';
+
+  const text = GitHubTextBuilder.buildPullRequestText({
+    headline,
+    description,
+    emoji,
   }, req.body);
 
   await Slack.sendToWebHook(req, res, text);
 };
 
 const reopenedPullRequest = async (req, res) => {
-  const text = constructPullRequestText({
-    headline: 'Gjenåpnet',
-    action: 'gjenåpnet',
+  const { title, html_url } = req.body.pull_request;
+
+  const text = GitHubTextBuilder.buildPullRequestText({
+    headline: 'Gjenåpnet pull request',
+    description: `gjenåpnet pull requesten <${html_url}|${title}>`,
     emoji: ':recycle:',
   }, req.body);
 

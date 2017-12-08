@@ -1,10 +1,11 @@
-import Slack, { constructIssueText } from '../slack';
+import Slack from '../slack';
+import GitHubTextBuilder from '../utils/GitHubTextBuilder';
 import { processUnhandledEvent } from './common';
 
 const openedIssue = async (req, res) => {
-  const text = constructIssueText({
-    headline: 'Ny',
-    action: 'åpnet',
+  const text = GitHubTextBuilder.buildIssueText({
+    headline: 'Ny issue',
+    description: 'åpnet issue',
     emoji: ':sparkles:',
   }, req.body);
 
@@ -12,9 +13,9 @@ const openedIssue = async (req, res) => {
 };
 
 const editedIssue = async (req, res) => {
-  const text = constructIssueText({
-    headline: 'Endret',
-    action: 'endret',
+  const text = GitHubTextBuilder.buildIssueText({
+    headline: 'Endret issue',
+    description: 'endret issue',
     emoji: ':nut_and_bolt:',
   }, req.body);
 
@@ -22,9 +23,9 @@ const editedIssue = async (req, res) => {
 };
 
 const closedIssue = async (req, res) => {
-  const text = constructIssueText({
-    headline: 'Lukket',
-    action: 'lukket',
+  const text = GitHubTextBuilder.buildIssueText({
+    headline: 'Lukket issue',
+    description: 'lukket issue',
     emoji: ':no_entry_sign:',
   }, req.body);
 
@@ -32,9 +33,9 @@ const closedIssue = async (req, res) => {
 };
 
 const reopenedIssue = async (req, res) => {
-  const text = constructIssueText({
-    headline: 'Gjenåpnet',
-    action: 'gjenåpnet',
+  const text = GitHubTextBuilder.buildIssueText({
+    headline: 'Gjenåpnet issue',
+    description: 'gjenåpnet issue',
     emoji: ':recycle:',
   }, req.body);
 

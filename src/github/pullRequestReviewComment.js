@@ -1,31 +1,38 @@
-import Slack, { constructPullRequestReviewCommentText } from '../slack';
+import Slack from '../slack';
+import GitHubTextBuilder from '../utils/GitHubTextBuilder';
 import { processUnhandledEvent } from './common';
 
 const createdPullRequestReviewComment = async (req, res) => {
-  const text = constructPullRequestReviewCommentText({
-    headline: 'Kommenterte på pull request',
-    action: 'kommenterte på pull request',
-    emoji: ':point_right:',
+  const { title, html_url } = req.body.pull_request;
+
+  const text = GitHubTextBuilder.buildPullRequestReviewCommentText({
+    headline: 'Kommentar i pull request diskusjon',
+    description: `kommenterte i diskusjonen på pull requesten <${html_url}|${title}>`,
+    emoji: ':thinking_face:',
   }, req.body);
 
   await Slack.sendToWebHook(req, res, text);
 };
 
 const editedPullRequestReviewComment = async (req, res) => {
-  const text = constructPullRequestReviewCommentText({
-    headline: 'Oppdaterte kommentaren på pull request',
-    action: 'oppdaterte kommentaren på pull request',
-    emoji: ':nut_and_bolt:',
+  const { title, html_url } = req.body.pull_request;
+
+  const text = GitHubTextBuilder.buildPullRequestReviewCommentText({
+    headline: 'Oppdatert kommentar i pull request diskusjon',
+    description: `oppdaterte sin kommentar i diskusjonen på pull requesten <${html_url}|${title}>`,
+    emoji: ':sweat_smile:',
   }, req.body);
 
   await Slack.sendToWebHook(req, res, text);
 };
 
 const deletedPullRequestReviewComment = async (req, res) => {
-  const text = constructPullRequestReviewCommentText({
-    headline: 'Slettet pull request review kommentar',
-    action: 'slettet pull request review kommentar',
-    emoji: ':no_entry_sign:',
+  const { title, html_url } = req.body.pull_request;
+
+  const text = GitHubTextBuilder.buildPullRequestReviewCommentText({
+    headline: 'Slettet kommentar i pull request diskusjon',
+    description: `slettet sin kommentar i diskusjonen på pull requesten <${html_url}|${title}>`,
+    emoji: ':grin:',
   }, req.body);
 
   await Slack.sendToWebHook(req, res, text);
