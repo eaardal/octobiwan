@@ -3,6 +3,7 @@ import log from '../infrastructure/logger';
 import processIssueEvent from './issue';
 import processPullRequestEvent from './pullRequest';
 import processPullRequestReviewEvent from './pullRequestReview';
+import processPullRequestReviewCommentEvent from './pullRequestReviewComment';
 
 const { router, execute } = createRouter();
 
@@ -41,6 +42,9 @@ router.post(
           break;
         case 'pull_request_review':
           await processPullRequestReviewEvent(req, res);
+          break;
+        case 'pull_request_review_comment':
+          await processPullRequestReviewCommentEvent(req, res);
           break;
         default:
           processUnhandledEvent(req, res);

@@ -1,8 +1,8 @@
-import Slack, { constructPullRequestReviewText } from '../slack';
+import Slack, { constructPullRequestReviewCommentText } from '../slack';
 import { processUnhandledEvent } from './common';
 
-const submittedPullRequestReview = async (req, res) => {
-  const text = constructPullRequestReviewText({
+const createdPullRequestReviewComment = async (req, res) => {
+  const text = constructPullRequestReviewCommentText({
     headline: 'Kommenterte på pull request',
     action: 'kommenterte på pull request',
     emoji: ':sparkles:',
@@ -11,8 +11,8 @@ const submittedPullRequestReview = async (req, res) => {
   await Slack.sendToWebHook(req, res, text);
 };
 
-const editedPullRequestReview = async (req, res) => {
-  const text = constructPullRequestReviewText({
+const editedPullRequestReviewComment = async (req, res) => {
+  const text = constructPullRequestReviewCommentText({
     headline: 'Oppdaterte kommentaren på pull request',
     action: 'oppdaterte kommentaren på pull request',
     emoji: ':nut_and_bolt:',
@@ -21,10 +21,10 @@ const editedPullRequestReview = async (req, res) => {
   await Slack.sendToWebHook(req, res, text);
 };
 
-const dismissedPullRequestReview = async (req, res) => {
-  const text = constructPullRequestReviewText({
-    headline: 'Avsluttet pull request review',
-    action: 'avsluttet pull request review',
+const deletedPullRequestReviewComment = async (req, res) => {
+  const text = constructPullRequestReviewCommentText({
+    headline: 'Slettet pull request review kommentar',
+    action: 'slettet pull request review kommentar',
     emoji: ':no_entry_sign:',
   }, req.body);
 
@@ -35,14 +35,14 @@ const processPullRequestReviewEvent = async (req, res) => {
   const action = req.body.action;
 
   switch (action) {
-    case 'submitted':
-      await submittedPullRequestReview(req, res);
+    case 'created':
+      await createdPullRequestReviewComment(req, res);
       break;
     case 'edited':
-      await editedPullRequestReview(req, res);
+      await editedPullRequestReviewComment(req, res);
       break;
-    case 'dismissed':
-      await dismissedPullRequestReview(req, res);
+    case 'deleted':
+      await deletedPullRequestReviewComment(req, res);
       break;
     default:
       processUnhandledEvent(req, res);

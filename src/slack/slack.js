@@ -1,7 +1,7 @@
 import SlackWebhook from 'slack-webhook';
 import log from '../infrastructure/logger';
 
-const sendToWebHook = async (req, text) => {
+const sendToWebHook = async (req, res, text) => {
   const slackWebHookUrl = req.query.slackHook;
   const botName = req.query.botName;
   const botIcon = req.query.botIcon;
@@ -32,7 +32,14 @@ const sendToWebHook = async (req, text) => {
 
   const slack = new SlackWebhook(slackWebHookUrl);
 
-  return slack.send(body);
+  try {
+    await slack.send(text);
+    res.status(200).send('Posted to Slack successfully');
+  } catch (error) {
+    const ex = new Error('Error occurred when attempting to POST the payload to Slack');
+    ex.downstreamError = error;
+    throw ex;
+  }
 };
 
 export default {
