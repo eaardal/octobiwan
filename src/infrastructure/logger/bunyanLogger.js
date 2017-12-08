@@ -25,13 +25,13 @@ MyRawStream.prototype.write = (rec) => {
 
 const logger = bunyan.createLogger({
   name: 'octobiwan',
-  streams: [
-    {
-      level: 'debug',
-      stream: new MyRawStream(),
-      type: 'raw',
-    },
-  ],
+  // streams: [
+  //   {
+  //     level: 'debug',
+  //     stream: new MyRawStream(),
+  //     type: 'raw',
+  //   },
+  // ],
 });
 
 logger.level('debug');

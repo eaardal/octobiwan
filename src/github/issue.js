@@ -1,31 +1,62 @@
-import SlackHttpHelper from '../infrastructure/slackHttpHelper';
-import log from '../infrastructure/logger';
+import Slack from '../slack';
 
-const slackifyOpenedIssue = body =>
-  `:sparkles: *<${body.issue.url}|Ny issue>*
-  <${body.issue.user.url}|${body.issue.user.login}> åpnet issue #${body.issue.number} i <${
-  body.issue.repository_url
-}|${body.repository.name}>`;
+const sendToSlack = async (req, res, text) => {
+  try {
+    await Slack.sendToWebHook(req, text);
+
+    res.status(200).send('Posted to Slack successfully');
+  } catch (error) {
+    const ex = new Error('Error occurred when attempting to POST the payload to Slack');
+    ex.downstreamError = error;
+
+    throw ex;
+  }
+};
+
+const createIssueText = (phrases, body) =>
+  `${phrases.emoji} *<${body.issue.html_url}|${phrases.headline} issue>*
+  <${body.issue.user.html_url}|${body.issue.user.login}> ${phrases.action} issue #${body.issue.number} i <${
+  body.repository.html_url
+}|${body.repository.full_name}>`;
 
 const processOpenedIssueEvent = async (req, res) => {
-  const formattedText = slackifyOpenedIssue(req.body);
+  const text = createIssueText({
+    headline: 'Ny',
+    action: 'åpnet',
+    emoji: ':sparkles:',
+  }, req.body);
 
-  try {
-    const response = await SlackHttpHelper.postToSlackWebHook(req, formattedText);
+  await sendToSlack(req, res, text);
+};
 
-    if (response.status === 200) {
-      res.status(200).send('Posted to Slack successfully');
-    } else {
-      res.status(response.status).json(response);
-    }
-  } catch (error) {
-    log.error('Failed POSTing to Slack', error);
+const processEditedIssueEvent = async (req, res) => {
+  const text = createIssueText({
+    headline: 'Endret',
+    action: 'endret',
+    emoji: ':nut_and_bolt:',
+  }, req.body);
 
-    res.status(error.status).json({
-      downstreamError: error,
-      message: 'Error occurred when attempting to POST the payload to Slack',
-    });
-  }
+  await sendToSlack(req, res, text);
+};
+
+const processClosedIssueEvent = async (req, res) => {
+  const text = createIssueText({
+    headline: 'Lukket',
+    action: 'lukket',
+    emoji: ':no_entry_sign:',
+  }, req.body);
+
+  await sendToSlack(req, res, text);
+};
+
+const processReopenedIssueEvent = async (req, res) => {
+  const text = createIssueText({
+    headline: 'Gjenåpnet',
+    action: 'gjenåpnet',
+    emoji: ':recycle:',
+  }, req.body);
+
+  await sendToSlack(req, res, text);
 };
 
 const processUnhandledIssueEvent = (req, res) => {
@@ -42,6 +73,15 @@ const processIssueEvent = async (req, res) => {
   switch (action) {
     case 'opened':
       await processOpenedIssueEvent(req, res);
+      break;
+    case 'edited':
+      await processEditedIssueEvent(req, res);
+      break;
+    case 'closed':
+      await processClosedIssueEvent(req, res);
+      break;
+    case 'reopened':
+      await processReopenedIssueEvent(req, res);
       break;
     default:
       processUnhandledIssueEvent(req, res);

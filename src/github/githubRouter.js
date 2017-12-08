@@ -1,6 +1,8 @@
 import createRouter from '../infrastructure/routerFactory';
 import log from '../infrastructure/logger';
 import processIssueEvent from './issue';
+import processPullRequestEvent from './pullRequest';
+import processPullRequestReviewEvent from './pullRequestReview';
 
 const { router, execute } = createRouter();
 
@@ -33,6 +35,12 @@ router.post(
           break;
         case 'issues':
           await processIssueEvent(req, res);
+          break;
+        case 'pull_request':
+          await processPullRequestEvent(req, res);
+          break;
+        case 'pull_request_review':
+          await processPullRequestReviewEvent(req, res);
           break;
         default:
           processUnhandledEvent(req, res);
