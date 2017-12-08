@@ -5,7 +5,7 @@ const createdPullRequestReviewComment = async (req, res) => {
   const text = constructPullRequestReviewCommentText({
     headline: 'Kommenterte på pull request',
     action: 'kommenterte på pull request',
-    emoji: ':sparkles:',
+    emoji: ':point_right:',
   }, req.body);
 
   await Slack.sendToWebHook(req, res, text);

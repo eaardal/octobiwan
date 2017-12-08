@@ -26,7 +26,7 @@ const closedPullRequest = async (req, res) => {
 
   const text = constructClosedPullRequestText({
     headline: merged ? 'Merget pull request' : 'Lukket pull request',
-    action: merged ? `merget pull request "${title}" inn i ${base.ref}` : 'lukket pull request',
+    action: merged ? `merget pull request "*${title}*" inn i *${base.ref}*` : 'lukket pull request',
     emoji: merged ? ':white_check_mark:' : ':no_entry_sign:',
   }, req.body);
 

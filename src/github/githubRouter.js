@@ -12,7 +12,7 @@ const processPingEvent = (req, res) => {
 };
 
 const processUnhandledEvent = (req, res) => {
-  res.status(406).send(`I can't handle "${req.get('X-GitHub-Event')}" events :(`);
+  res.status(400).send(`I can't handle "${req.get('X-GitHub-Event')}" events :(`);
 };
 
 router.post(
