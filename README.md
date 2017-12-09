@@ -26,6 +26,8 @@ The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by [Cameron McEfe
 
 #### Supported events:
 
+_Only listing implemented or partially implemented events_
+
 **Issues**
 
 | Event        | Support            |
@@ -33,33 +35,69 @@ The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by [Cameron McEfe
 | Opened       | :white_check_mark: |
 | Closed       | :white_check_mark: |
 | Reopened     | :white_check_mark: |
-| Assigned     | :no_entry_sign:    |
-| Unassigned   | :no_entry_sign:    |
-| Labeled      | :no_entry_sign:    |
-| Unlabeled    | :no_entry_sign:    |
-| Milestoned   | :no_entry_sign:    |
-| Demilestoned | :no_entry_sign:    |
+| Assigned     | :no_entry:         |
+| Unassigned   | :no_entry:         |
+| Labeled      | :no_entry:         |
+| Unlabeled    | :no_entry:         |
+| Milestoned   | :no_entry:         |
+| Demilestoned | :no_entry:         |
 
 **Pull request**
+
+| Event                  | Support            |
+| ---------------------- | ------------------ |
+| Opened                 | :white_check_mark: |
+| Closed                 | :white_check_mark: |
+| Reopened               | :white_check_mark: |
+| Edited                 | :white_check_mark: |
+| Assigned               | :no_entry:         |
+| Unassigned             | :no_entry:         |
+| Review requested       | :no_entry:         |
+| Review request removed | :no_entry:         |
+| Labeled                | :no_entry:         |
+| Unlabeled              | :no_entry:         |
+| Synchronized           | :no_entry:         |
+
+**Pull request review**
+
+| Event     | Support            |
+| --------- | ------------------ |
+| Submitted | :white_check_mark: |
+| Edited    | :white_check_mark: |
+| Dismissed | :white_check_mark: |
+
+**Pull request review comment**
+
+| Event   | Support            |
+| ------- | ------------------ |
+| Created | :white_check_mark: |
+| Edited  | :white_check_mark: |
+| Deleted | :white_check_mark: |
 
 ## Development
 
 ### Requirements
+
+_Skip if you're deploying your own instance of the API_
 
 * [Heroku account](https://signup.heroku.com/)
 * Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
 #### Local
 
-* npm start
+* `npm start`
 
 #### Heroku
 
 **Deploying**
 
-* npm run deploy
+To initiate a deployment to Heroku:
+
+* `npm run deploy`
 
 **Scripts for Heroku**
 
-* npm run build
-* npm run serve (initiated via Procfile)
+These scripts are intended for Heroku
+
+* `npm run build`
+* `npm run serve` (initiated via Procfile)
