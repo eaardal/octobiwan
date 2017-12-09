@@ -6,15 +6,12 @@ import bunyan from 'bunyan';
 const LOG_LEVEL = 'info';
 
 class ConsoleLogTextStream {
-  write(rec) {
-    const time = rec.time.toISOString();
-    const msg = rec.msg;
-
+  static extractLogData(rec) {
     const data = {
       ...rec,
     };
 
-    // Deleting bunyan properties so that only custom log message properties are printed
+    // Deleting bunyan meta properties so that only custom log message properties are included
     delete data.name;
     delete data.pid;
     delete data.msg;
@@ -23,13 +20,18 @@ class ConsoleLogTextStream {
     delete data.level;
     delete data.hostname;
 
-    console.log(
-      '[%s] %s: %s. %s',
-      time,
-      bunyan.nameFromLevel[rec.level],
-      msg,
-      JSON.stringify(data),
-    );
+    return data;
+  }
+
+  write(recordJson) {
+    const record = JSON.parse(recordJson);
+
+    const time = record.time;
+    const level = bunyan.nameFromLevel[record.level];
+    const message = record.msg;
+    const data = JSON.stringify(ConsoleLogTextStream.extractLogData(record));
+
+    console.log('[%s] %s: %s. %s', time, level, message, data);
   }
 }
 
@@ -37,9 +39,9 @@ const logger = bunyan.createLogger({
   name: 'octobiwan',
 });
 
-// Can't pipe logs to bunyan (in package.json) when using Heroku, so have to format logs to text
+// Can't pipe logs to bunyan formatter when using Heroku, so have to format logs to text
 // manually to get understandable logging
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
   logger.streams = [
     {
       level: LOG_LEVEL,
