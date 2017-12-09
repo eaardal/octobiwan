@@ -20,11 +20,12 @@ The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by
 1. `Payload URL`: `{your-hosted-octobiwan-api}/github/hook?slackHook={Webhook
    URL}`
 1. `Content type`: `application/json`
-1. Select events to send to hook.
+1. Select events to send to hook (see supported events below).
 1. Invoke events, see that they appear in Slack, as configured in your `Incoming
-   WebHook integration`. Remember that in the Webhook configuration page, at the
-   bottom, you can inspect Recent Deliveries, and `Redeliver` events to replay
-   them repeatedly, instead of invoking actual events in GitHub.
+   WebHook integration`. Remember that in the Webhook configuration page in
+   GitHub, at the bottom, you can inspect _Recent Deliveries_, and _Redeliver_
+   events, to replay them repeatedly instead of invoking actual events in
+   GitHub.
 
 #### Querystring parameters
 
