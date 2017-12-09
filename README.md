@@ -17,8 +17,9 @@ The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by
 ### GitHub
 
 1. In your GitHub repository, go to `Settings` -> `Webhooks` -> `Add webhook`
-1. `Payload URL`: `{your-hosted-octobiwan-api}/github/hook?slackHook={Webhook
-   URL}`
+1. `Payload URL`:
+   `https://octobiwan.herokuapp.com/github/hook?slackHook={Webhook URL}` (or
+   `{your-hosted-octobiwan-api}/github/hook?slackHook={Webhook URL}`)
 1. `Content type`: `application/json`
 1. Select events to send to hook (see supported events below).
 1. Invoke events, see that they appear in Slack, as configured in your `Incoming
