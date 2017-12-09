@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import express from 'express';
-// import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import Logger from '../infrastructure/logger';
@@ -12,12 +11,12 @@ const PORT = process.env.PORT || 8123;
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-// };
-
-// app.use(cors(corsOptions));
+app.get('/', (req, res) => {
+  res.send(
+    `<h1><a href="https://github.com/eaardal/octobiwan">This is the API you're looking for</a></h1>
+    <img src="https://octodex.github.com/images/octobiwan.jpg" alt="octobiwan" height="300">`,
+  );
+});
 
 app.get('/ping', (req, res) => {
   res.send('Pong!');

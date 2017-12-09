@@ -1,39 +1,51 @@
+/* eslint-disable no-console */
+/* eslint-disable class-methods-use-this */
+
 import bunyan from 'bunyan';
 
-function MyRawStream() {}
-MyRawStream.prototype.write = (rec) => {
-  const data = {
-    ...rec,
-  };
-  delete data.name;
-  delete data.pid;
-  delete data.msg;
-  delete data.time;
-  delete data.v;
-  delete data.level;
-  delete data.hostname;
+const LOG_LEVEL = 'info';
 
-  // eslint-disable-next-line
-  console.log(
-    '[%s] %s: %s. %s',
-    rec.time.toISOString(),
-    bunyan.nameFromLevel[rec.level],
-    rec.msg,
-    JSON.stringify(data),
-  );
-};
+class ConsoleLogTextStream {
+  write(rec) {
+    const data = {
+      ...rec,
+    };
+
+    // Deleting bunyan properties so that only custom log message properties are printed
+    delete data.name;
+    delete data.pid;
+    delete data.msg;
+    delete data.time;
+    delete data.v;
+    delete data.level;
+    delete data.hostname;
+
+    console.log(
+      '[%s] %s: %s. %s',
+      rec.time.toISOString(),
+      bunyan.nameFromLevel[rec.level],
+      rec.msg,
+      JSON.stringify(data),
+    );
+  }
+}
 
 const logger = bunyan.createLogger({
   name: 'octobiwan',
-  // streams: [
-  //   {
-  //     level: 'debug',
-  //     stream: new MyRawStream(),
-  //     type: 'raw',
-  //   },
-  // ],
 });
 
-logger.level('debug');
+// Can't pipe logs to bunyan (in package.json) when using Heroku, so have to format logs to text
+// manually to get understandable logging
+if (process.env.NODE_ENV === 'production') {
+  logger.streams = [
+    {
+      level: LOG_LEVEL,
+      stream: new ConsoleLogTextStream(),
+      type: 'raw',
+    },
+  ];
+}
+
+logger.level(LOG_LEVEL);
 
 export default logger;
