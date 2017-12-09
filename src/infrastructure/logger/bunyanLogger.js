@@ -7,6 +7,9 @@ const LOG_LEVEL = 'info';
 
 class ConsoleLogTextStream {
   write(rec) {
+    const time = rec.time.toISOString();
+    const msg = rec.msg;
+
     const data = {
       ...rec,
     };
@@ -22,9 +25,9 @@ class ConsoleLogTextStream {
 
     console.log(
       '[%s] %s: %s. %s',
-      rec.time.toISOString(),
+      time,
       bunyan.nameFromLevel[rec.level],
-      rec.msg,
+      msg,
       JSON.stringify(data),
     );
   }
