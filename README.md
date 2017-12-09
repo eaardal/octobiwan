@@ -1,7 +1,7 @@
 # Octobiwan
 
-<img src="https://octodex.github.com/images/octobiwan.jpg" alt="octobiwan" height="300">
-*The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by [Cameron McEfee](https://github.com/cameronmcefee)*
+<img src="https://octodex.github.com/images/octobiwan.jpg" alt="octobiwan" height="300"><br/>
+The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by [Cameron McEfee](https://github.com/cameronmcefee)
 
 > Status: Prototype, do not use
 
