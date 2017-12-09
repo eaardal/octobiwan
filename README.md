@@ -1,7 +1,8 @@
 # Octobiwan
 
 <img src="https://octodex.github.com/images/octobiwan.jpg" alt="octobiwan" height="300"><br/>
-The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by [Cameron McEfee](https://github.com/cameronmcefee)
+The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by
+[Cameron McEfee](https://github.com/cameronmcefee)
 
 > Status: Prototype, do not use
 
@@ -23,6 +24,25 @@ The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by [Cameron McEfe
    WebHook integration`. Remember that in the Webhook configuration page, at the
    bottom, you can inspect Recent Deliveries, and `Redeliver` events to replay
    them repeatedly, instead of invoking actual events in GitHub.
+
+#### Querystring parameters
+
+##### `slackHook={Webhook URL}`
+
+The url to your Slack Incoming WebHook. Should be the `Webhook URL` value from
+the configuration screen in Slack.
+
+##### `botName={name}`
+
+Override the bot name configured in Slack.
+
+##### `botIcon={url-to-64x64-icon}`
+
+Override the bot icon configured in Slack.
+
+##### `channel={channel}`
+
+Override the channel the bot should post to.
 
 #### Supported events:
 

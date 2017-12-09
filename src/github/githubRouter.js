@@ -59,11 +59,7 @@ router.post(
 );
 
 router.get('/hook', (req, res) => {
-  res.send(
-    `<h1>How to use the /github/hook/ API</h1>
-    <h3><a href="https://github.com/eaardal/octobiwan">https://github.com/eaardal/octobiwan</a></h3>
-    <img src="https://octodex.github.com/images/octobiwan.jpg" alt="octobiwan" height="300">`,
-  );
+  res.send('<a href="https://github.com/eaardal/octobiwan">How to use the /github/hook API</a>');
 });
 
 export default router;

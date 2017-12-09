@@ -18,10 +18,6 @@ app.get('/', (req, res) => {
   );
 });
 
-app.get('/ping', (req, res) => {
-  res.send('Pong!');
-});
-
 app.use('/github', githubRouter);
 
 app.listen(PORT, () => {

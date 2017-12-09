@@ -41,7 +41,7 @@ const logger = bunyan.createLogger({
 
 // Can't pipe logs to bunyan formatter when using Heroku, so have to format logs to text
 // manually to get understandable logging
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   logger.streams = [
     {
       level: LOG_LEVEL,
