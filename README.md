@@ -4,7 +4,8 @@
 The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by
 [Cameron McEfee](https://github.com/cameronmcefee)
 
-> Status: Prototype, do not use
+> Status: Prototype, do not use.\
+> Prints Norwegian messages to Slack only (for now).
 
 ## How to use
 
@@ -96,28 +97,23 @@ _Only listing implemented or partially implemented events_
 
 ## Development
 
-### Requirements
+* Install everything: `npm i`
+* Run locally: `npm start`
+* Run tests (once): `npm test` or `npm run jest`
+* Run tests (watch): `npm run test:watch` or `npm run jest:watch` or `npm run
+  jest:watchall`
 
-_Skip if you're deploying your own instance of the API_
+## Deployment
+
+* All branches are built by Travis CI
+  ([https://travis-ci.org/eaardal/octobiwan](https://travis-ci.org/eaardal/octobiwan))
+* Code pushed to `master` is deployed to Heroku
+  ([https://octobiwan.herokuapp.com](https://octobiwan.herokuapp.com))
+
+### Services used
 
 * [Heroku account](https://signup.heroku.com/)
-* Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+* [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
-#### Local
-
-* `npm start`
-
-#### Heroku
-
-**Deploying**
-
-To initiate a deployment to Heroku:
-
-* `npm run deploy`
-
-**Scripts for Heroku**
-
-These scripts are intended for Heroku
-
-* `npm run build`
-* `npm run serve` (initiated via Procfile)
+* [Travis CI account](https://travis-ci.org/)
+* [Travis CLI](https://github.com/travis-ci/travis.rb#installation)
