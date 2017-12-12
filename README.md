@@ -39,13 +39,19 @@ the configuration screen in Slack.
 
 ##### `botName={name}`
 
+> Do not use yet
+
 Override the bot name configured in Slack.
 
 ##### `botIcon={url-to-64x64-icon}`
 
+> Do not use yet
+
 Override the bot icon configured in Slack.
 
 ##### `channel={channel}`
+
+> Do not use yet
 
 Override the channel the bot should post to.
 
