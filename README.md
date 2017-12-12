@@ -4,11 +4,10 @@
 The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by
 [Cameron McEfee](https://github.com/cameronmcefee)
 
-> Status: Prototype, do not use.\
-> Prints Norwegian messages to Slack only (for now).
-
 [![Build Status](https://travis-ci.org/eaardal/octobiwan.svg?branch=master)](https://travis-ci.org/eaardal/octobiwan)
-[![Heroku]](https://heroku-badge.herokuapp.com/?app=octobiwan&style=flat)
+![Heroku](https://heroku-badge.herokuapp.com/?app=octobiwan&style=flat)
+
+> Prints Norwegian messages to Slack only (for now).
 
 ## How to use
 
