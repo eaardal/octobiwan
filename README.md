@@ -4,11 +4,10 @@
 The [Octobi Wan Catnobi](https://octodex.github.com/octobiwan) by
 [Cameron McEfee](https://github.com/cameronmcefee)
 
-> Status: Prototype, do not use.\
-> Prints Norwegian messages to Slack only (for now).
-
 [![Build Status](https://travis-ci.org/eaardal/octobiwan.svg?branch=master)](https://travis-ci.org/eaardal/octobiwan)
 ![Heroku](https://heroku-badge.herokuapp.com/?app=octobiwan&style=flat)
+
+> Prints Norwegian messages to Slack only (for now).
 
 ## How to use
 
@@ -40,13 +39,19 @@ the configuration screen in Slack.
 
 ##### `botName={name}`
 
+> Do not use yet
+
 Override the bot name configured in Slack.
 
 ##### `botIcon={url-to-64x64-icon}`
 
+> Do not use yet
+
 Override the bot icon configured in Slack.
 
 ##### `channel={channel}`
+
+> Do not use yet
 
 Override the channel the bot should post to.
 
