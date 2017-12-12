@@ -105,6 +105,10 @@ _Only listing implemented or partially implemented events_
 | Edited  | :white_check_mark: |
 | Deleted | :white_check_mark: |
 
+## Examples
+
+![Slack messages](./images/slack.PNG)
+
 ## Development
 
 * Install everything: `npm i`
