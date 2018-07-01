@@ -3,7 +3,7 @@
 
 import bunyan from 'bunyan';
 
-const LOG_LEVEL = 'info';
+const LOG_LEVEL = 'debug';
 
 class ConsoleLogTextStream {
   static extractLogData(rec) {
