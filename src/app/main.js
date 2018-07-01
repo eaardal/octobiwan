@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8123;
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: ['json', 'application/x-www-form-urlencoded'] }));
 
 app.get('/', (req, res) => {
   res.send(

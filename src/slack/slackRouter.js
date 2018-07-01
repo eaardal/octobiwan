@@ -7,7 +7,7 @@ router.post(
   '/interactive',
   execute(async (req, res) => {
     try {
-      log.info('request body', req.body);
+      log.info('request body', JSON.stringify(req.body, null, 2));
 
       res.status(200).json(`${req.body.user.name} ser på denne pull requesten nå`);
     } catch (error) {
