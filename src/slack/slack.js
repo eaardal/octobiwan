@@ -9,6 +9,35 @@ const sendToWebHook = async (req, res, text) => {
 
   const body = {
     text,
+    attachments: [
+      {
+        text: 'Behandle pull request',
+        fallback: 'Gå på GitHub for å behandle pull requesten',
+        callback_id: 'review_pull_request',
+        color: '#3AA3E3',
+        attachment_type: 'default',
+        actions: [
+          {
+            name: 'pr_action',
+            text: 'Start review',
+            type: 'button',
+            value: 'start_pull_request_review',
+          },
+          {
+            name: 'pr_action',
+            text: ':heavy_check_mark: Godkjenn',
+            type: 'button',
+            value: 'approve_pull_request',
+          },
+          {
+            name: 'pr_action',
+            text: 'Avslå',
+            type: 'button',
+            value: 'reject_pull_request',
+          },
+        ],
+      },
+    ],
   };
 
   if (botName) {
@@ -28,7 +57,6 @@ const sendToWebHook = async (req, res, text) => {
   }
 
   log.debug(`POSTing to "${slackWebHookUrl}"`, body);
-
 
   const slack = new SlackWebhook(slackWebHookUrl);
 

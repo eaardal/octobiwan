@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import Logger from '../infrastructure/logger';
 import githubRouter from '../github/githubRouter';
+import slackRouter from '../slack/slackRouter';
 
 const app = express();
 const PORT = process.env.PORT || 8123;
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/github', githubRouter);
+app.use('/slack', slackRouter);
 
 app.listen(PORT, () => {
   Logger.info("This is the api you're looking for", { port: PORT });
