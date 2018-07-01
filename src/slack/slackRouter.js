@@ -9,7 +9,7 @@ router.post(
     try {
       log.info('request body', req.body);
 
-      res.status(200).json(req.body);
+      res.status(200).json(`${req.body.user.name} ser på denne pull requesten nå`);
     } catch (error) {
       log.error('Error occurred', error);
 

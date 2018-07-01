@@ -1,45 +1,70 @@
 import Slack from '../slack';
 import GitHubTextBuilder from '../utils/GitHubTextBuilder';
 import { processUnhandledEvent } from './common';
+import { extractSlackWebHookOptions } from '../utils/requestUtils';
 
-const openedIssue = async (req, res) => {
-  const text = GitHubTextBuilder.buildIssueText({
-    headline: 'Ny issue',
-    description: 'åpnet issue',
-    emoji: ':sparkles:',
-  }, req.body);
+const openedIssue = async (req) => {
+  const text = GitHubTextBuilder.buildIssueText(
+    {
+      headline: 'Ny issue',
+      description: 'åpnet issue',
+      emoji: ':sparkles:',
+    },
+    req.body,
+  );
 
-  await Slack.sendToWebHook(req, res, text);
+  const content = { text };
+  const options = extractSlackWebHookOptions(req);
+
+  await Slack.sendToWebHook(content, options);
 };
 
-const editedIssue = async (req, res) => {
-  const text = GitHubTextBuilder.buildIssueText({
-    headline: 'Endret issue',
-    description: 'endret issue',
-    emoji: ':nut_and_bolt:',
-  }, req.body);
+const editedIssue = async (req) => {
+  const text = GitHubTextBuilder.buildIssueText(
+    {
+      headline: 'Endret issue',
+      description: 'endret issue',
+      emoji: ':nut_and_bolt:',
+    },
+    req.body,
+  );
 
-  await Slack.sendToWebHook(req, res, text);
+  const content = { text };
+  const options = extractSlackWebHookOptions(req);
+
+  await Slack.sendToWebHook(content, options);
 };
 
-const closedIssue = async (req, res) => {
-  const text = GitHubTextBuilder.buildIssueText({
-    headline: 'Lukket issue',
-    description: 'lukket issue',
-    emoji: ':no_entry_sign:',
-  }, req.body);
+const closedIssue = async (req) => {
+  const text = GitHubTextBuilder.buildIssueText(
+    {
+      headline: 'Lukket issue',
+      description: 'lukket issue',
+      emoji: ':no_entry_sign:',
+    },
+    req.body,
+  );
 
-  await Slack.sendToWebHook(req, res, text);
+  const content = { text };
+  const options = extractSlackWebHookOptions(req);
+
+  await Slack.sendToWebHook(content, options);
 };
 
-const reopenedIssue = async (req, res) => {
-  const text = GitHubTextBuilder.buildIssueText({
-    headline: 'Gjenåpnet issue',
-    description: 'gjenåpnet issue',
-    emoji: ':recycle:',
-  }, req.body);
+const reopenedIssue = async (req) => {
+  const text = GitHubTextBuilder.buildIssueText(
+    {
+      headline: 'Gjenåpnet issue',
+      description: 'gjenåpnet issue',
+      emoji: ':recycle:',
+    },
+    req.body,
+  );
 
-  await Slack.sendToWebHook(req, res, text);
+  const content = { text };
+  const options = extractSlackWebHookOptions(req);
+
+  await Slack.sendToWebHook(content, options);
 };
 
 const processIssueEvent = async (req, res) => {
@@ -62,6 +87,8 @@ const processIssueEvent = async (req, res) => {
       processUnhandledEvent(req, res);
       break;
   }
+
+  res.status(200).send('Posted to Slack successfully');
 };
 
 export default processIssueEvent;

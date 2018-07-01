@@ -1,47 +1,15 @@
 import SlackWebhook from 'slack-webhook';
 import log from '../infrastructure/logger';
 
-const sendToWebHook = async (req, res, text) => {
-  const slackWebHookUrl = req.query.slackHook;
-  const botName = req.query.botName;
-  const botIcon = req.query.botIcon;
-  const channel = req.query.channel;
+const sendToWebHook = async (content, options) => {
+  const slackWebHookUrl = options.slackHook;
+  const botName = options.botName;
+  const botIcon = options.botIcon;
+  const channel = options.channel;
 
   const body = {
-    text,
-    attachments: [
-      {
-        text: 'Behandle pull request',
-        fallback: 'Gå på GitHub for å behandle pull requesten',
-        // callback_id: 'review_pull_request',
-        // color: '#3AA3E3',
-        // attachment_type: 'default',
-        actions: [
-          {
-            name: 'pr_action',
-            text: 'Start review',
-            type: 'button',
-            value: 'start_pull_request_review',
-            style: 'primary',
-          },
-          {
-            name: 'pr_action',
-            text: ':heavy_check_mark: Godkjenn',
-            type: 'button',
-            value: 'approve_pull_request',
-            style: 'good',
-          },
-          {
-            name: 'pr_action',
-            text: 'Avslå',
-            type: 'button',
-            // value: 'reject_pull_request',
-            url: 'https://www.vg.no',
-            style: 'danger',
-          },
-        ],
-      },
-    ],
+    text: content.text || 'NO_TEXT_ERR',
+    attachments: content.attachments || [],
   };
 
   if (botName) {
@@ -66,7 +34,6 @@ const sendToWebHook = async (req, res, text) => {
 
   try {
     await slack.send(body);
-    res.status(200).send('Posted to Slack successfully');
   } catch (error) {
     const ex = new Error('Error occurred when attempting to POST the payload to Slack');
     ex.downstreamError = error;

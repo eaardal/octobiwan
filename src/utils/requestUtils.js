@@ -6,3 +6,10 @@ export const constructFullUrl = req =>
     host: req.get('host'),
     pathname: req.originalUrl,
   });
+
+export const extractSlackWebHookOptions = req => ({
+  slackHook: req.query.slackHook,
+  botName: req.query.botName,
+  botIcon: req.query.botIcon,
+  channel: req.query.channel,
+});
