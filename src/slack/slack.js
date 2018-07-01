@@ -65,7 +65,7 @@ const sendToWebHook = async (req, res, text) => {
   const slack = new SlackWebhook(slackWebHookUrl);
 
   try {
-    await slack.send(text);
+    await slack.send(body);
     res.status(200).send('Posted to Slack successfully');
   } catch (error) {
     const ex = new Error('Error occurred when attempting to POST the payload to Slack');
